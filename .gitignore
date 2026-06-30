@@ -1,0 +1,5 @@
+/server
+coverage.out
+tmp/
+dist/
+.DS_Store
