@@ -4,7 +4,7 @@ API em Go que recebe um CEP brasileiro, identifica a cidade via ViaCEP e retorna
 
 ## URL Cloud Run
 
-TODO: substituir pela URL gerada no deploy do Cloud Run.
+https://cep-google-cloud-run-yzh36iqnlq-uc.a.run.app/weather/01001000
 
 ## Contrato
 
