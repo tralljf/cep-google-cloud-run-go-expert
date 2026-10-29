@@ -18,7 +18,7 @@ GET /weather/01001000
 {
   "temp_C": 28.5,
   "temp_F": 83.3,
-  "temp_K": 301.65
+  "temp_K": 301.5
 }
 ```
 

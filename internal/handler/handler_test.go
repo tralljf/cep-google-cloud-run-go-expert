@@ -47,7 +47,7 @@ func TestWeatherByZipcodeSuccess(t *testing.T) {
 		t.Fatalf("decode response: %v", err)
 	}
 
-	if !closeTo(got.TempC, 28.5) || !closeTo(got.TempF, 83.3) || !closeTo(got.TempK, 301.65) {
+	if !closeTo(got.TempC, 28.5) || !closeTo(got.TempF, 83.3) || !closeTo(got.TempK, 301.5) {
 		t.Fatalf("unexpected response: %+v", got)
 	}
 }

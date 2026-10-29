@@ -32,7 +32,7 @@ func TestServiceWeatherByZipcodeSuccess(t *testing.T) {
 		t.Fatalf("unexpected error: %v", err)
 	}
 
-	if temp.TempC != 20 || temp.TempF != 68 || temp.TempK != 293.15 {
+	if temp.TempC != 20 || temp.TempF != 68 || temp.TempK != 293 {
 		t.Fatalf("unexpected temperature: %+v", temp)
 	}
 }

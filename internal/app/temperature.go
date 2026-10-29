@@ -21,7 +21,7 @@ func CelsiusToFahrenheit(celsius float64) float64 {
 }
 
 func CelsiusToKelvin(celsius float64) float64 {
-	return celsius + 273.15
+	return celsius + 273
 }
 
 func roundTwoDecimals(value float64) float64 {

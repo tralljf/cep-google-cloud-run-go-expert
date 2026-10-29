@@ -13,12 +13,12 @@ func TestTemperatureConversions(t *testing.T) {
 		wantF   float64
 		wantK   float64
 	}{
-		{name: "kelvin floating point noise", celsius: 20.4, wantC: 20.4, wantF: 68.72, wantK: 293.55},
-		{name: "fahrenheit floating point noise", celsius: 18.5, wantC: 18.5, wantF: 65.3, wantK: 291.65},
-		{name: "both scales with noise", celsius: 28.5, wantC: 28.5, wantF: 83.3, wantK: 301.65},
-		{name: "celsius with many decimals", celsius: 21.456, wantC: 21.46, wantF: 70.62, wantK: 294.61},
-		{name: "negative", celsius: -3.3, wantC: -3.3, wantF: 26.06, wantK: 269.85},
-		{name: "zero", celsius: 0, wantC: 0, wantF: 32, wantK: 273.15},
+		{name: "kelvin floating point noise", celsius: 20.4, wantC: 20.4, wantF: 68.72, wantK: 293.4},
+		{name: "fahrenheit floating point noise", celsius: 18.5, wantC: 18.5, wantF: 65.3, wantK: 291.5},
+		{name: "both scales with noise", celsius: 28.5, wantC: 28.5, wantF: 83.3, wantK: 301.5},
+		{name: "celsius with many decimals", celsius: 21.456, wantC: 21.46, wantF: 70.62, wantK: 294.46},
+		{name: "negative", celsius: -3.3, wantC: -3.3, wantF: 26.06, wantK: 269.7},
+		{name: "zero", celsius: 0, wantC: 0, wantF: 32, wantK: 273},
 	}
 
 	for _, tt := range tests {
@@ -43,9 +43,9 @@ func TestTemperatureJSONHasNoFloatingPointTail(t *testing.T) {
 		celsius float64
 		want    string
 	}{
-		{celsius: 20.4, want: `{"temp_C":20.4,"temp_F":68.72,"temp_K":293.55}`},
-		{celsius: 18.5, want: `{"temp_C":18.5,"temp_F":65.3,"temp_K":291.65}`},
-		{celsius: 28.5, want: `{"temp_C":28.5,"temp_F":83.3,"temp_K":301.65}`},
+		{celsius: 20.4, want: `{"temp_C":20.4,"temp_F":68.72,"temp_K":293.4}`},
+		{celsius: 18.5, want: `{"temp_C":18.5,"temp_F":65.3,"temp_K":291.5}`},
+		{celsius: 28.5, want: `{"temp_C":28.5,"temp_F":83.3,"temp_K":301.5}`},
 	}
 
 	for _, tt := range tests {
