@@ -1,6 +1,7 @@
 package viacep
 
 import (
+	"bytes"
 	"context"
 	"encoding/json"
 	"fmt"
@@ -17,8 +18,22 @@ type Client struct {
 }
 
 type response struct {
-	Localidade string `json:"localidade"`
-	Erro       bool   `json:"erro"`
+	Localidade string          `json:"localidade"`
+	Erro       json.RawMessage `json:"erro"`
+}
+
+func (r response) notFound() bool {
+	erro := bytes.TrimSpace(r.Erro)
+	if len(erro) == 0 {
+		return false
+	}
+
+	switch string(erro) {
+	case "false", `"false"`, "null":
+		return false
+	}
+
+	return true
 }
 
 func NewClient(httpClient *http.Client) *Client {
@@ -57,7 +72,7 @@ func (c *Client) FindCity(ctx context.Context, zipcode string) (string, error) {
 	if err := json.NewDecoder(resp.Body).Decode(&data); err != nil {
 		return "", err
 	}
-	if data.Erro || data.Localidade == "" {
+	if data.notFound() || data.Localidade == "" {
 		return "", app.ErrZipcodeNotFound
 	}
 

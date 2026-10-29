@@ -10,6 +10,7 @@ import (
 	"testing"
 
 	"cep-google-cloud-run/internal/app"
+	"cep-google-cloud-run/internal/viacep"
 )
 
 type zipcodeClient struct {
@@ -70,6 +71,27 @@ func TestWeatherByZipcodeNotFound(t *testing.T) {
 	server := New(app.NewService(zipcodeClient{err: app.ErrZipcodeNotFound}, weatherClient{}))
 
 	req := httptest.NewRequest(http.MethodGet, "/weather/99999999", nil)
+	rec := httptest.NewRecorder()
+	server.ServeHTTP(rec, req)
+
+	if rec.Code != http.StatusNotFound {
+		t.Fatalf("expected status 404, got %d", rec.Code)
+	}
+	if rec.Body.String() != "can not find zipcode" {
+		t.Fatalf("unexpected body %q", rec.Body.String())
+	}
+}
+
+func TestWeatherByZipcodeViaCEPNotFound(t *testing.T) {
+	viacepServer := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, _ *http.Request) {
+		_, _ = w.Write([]byte(`{"erro":"true"}`))
+	}))
+	defer viacepServer.Close()
+
+	zipcodes := viacep.NewClientWithBaseURL(viacepServer.Client(), viacepServer.URL)
+	server := New(app.NewService(zipcodes, weatherClient{}))
+
+	req := httptest.NewRequest(http.MethodGet, "/weather/01001003", nil)
 	rec := httptest.NewRecorder()
 	server.ServeHTTP(rec, req)
 
