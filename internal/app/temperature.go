@@ -1,5 +1,7 @@
 package app
 
+import "math"
+
 type Temperature struct {
 	TempC float64 `json:"temp_C"`
 	TempF float64 `json:"temp_F"`
@@ -8,9 +10,9 @@ type Temperature struct {
 
 func NewTemperature(celsius float64) Temperature {
 	return Temperature{
-		TempC: celsius,
-		TempF: CelsiusToFahrenheit(celsius),
-		TempK: CelsiusToKelvin(celsius),
+		TempC: roundTwoDecimals(celsius),
+		TempF: roundTwoDecimals(CelsiusToFahrenheit(celsius)),
+		TempK: roundTwoDecimals(CelsiusToKelvin(celsius)),
 	}
 }
 
@@ -20,6 +22,10 @@ func CelsiusToFahrenheit(celsius float64) float64 {
 
 func CelsiusToKelvin(celsius float64) float64 {
 	return celsius + 273.15
+}
+
+func roundTwoDecimals(value float64) float64 {
+	return math.Round(value*100) / 100
 }
 
 func ValidZipcode(zipcode string) bool {
